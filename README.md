@@ -1,0 +1,130 @@
+# ALEE
+
+Code for computing and analysing **TACC** (Translation Augmentation Contrastive
+Accuracy) for multilingual sentence-embedding models, across three datasets and
+four augmentation types.
+
+The pipeline runs as a sequence of notebooks, numbered in the order they should be
+run. Each notebook reads the output of the previous one from `intermediate_outputs/`.
+Step 1 is not yet included and will be added later.
+
+
+## What it does
+
+For a set of embedding models, the pipeline measures how reliably each model ranks
+a *true* parallel translation above a *perturbed* version of the same text (a
+"foil"). A model that does this well assigns higher similarity to the correct
+translation than to the foil.
+
+The headline metric is **TACC**: the fraction of items where the model gives the
+true translation a higher similarity than the foil. Higher is better; 0.5 is chance.
+`macro_tacc` averages TACC across the four augmentation categories so no single
+foil type dominates.
+
+The four augmentation (foil) types are:
+
+- `polarity_negation`
+- `role_swap`
+- `antonym_replacement`
+- `hypernym_substitution`
+
+The three datasets are:
+
+| Dataset    | File                      | Referred to as |
+|------------|---------------------------|----------------|
+| ALEE-MT61  | `datasets/alee_mt61.csv`  | `df_wmt`       |
+| ALEE-F200  | `datasets/alee_f200.csv`  | `df_flores`    |
+| ALEE-BQ275 | `datasets/alee_bq275.csv` | `df_bouquet`   |
+
+
+## Repository layout
+
+```
+.
+├── 1--ALEE_...ipynb                           # step 1: to be added later
+├── 2--ALEE_PRE-CALCULATE-Embeddings.ipynb     # step 2: text -> embeddings
+├── 3--ALEE_PRE-CALCULATE-SIMILARITIES.ipynb   # step 3: embeddings -> similarities
+├── 4--ALEE_EVALUATION_ANALYSIS.ipynb          # step 4: similarities -> TACC + figures
+├── requirements.txt
+├── datasets/                                  # input CSVs (see table above)
+└── intermediate_outputs/
+    ├── embeddings/                            # written by step 2
+    ├── similarities/                          # written by step 3
+    └── figures/                              # written by step 4
+```
+
+
+## Setup
+
+Requires Python 3.11. A GPU is strongly recommended for step 2 (embedding
+generation); steps 3 and 4 run on CPU.
+
+```bash
+pip install -r requirements.txt
+```
+
+Step 2 also downloads models from the Hugging Face Hub and may prompt for a token
+via `login()`. Some models require accepting their license on the Hub first.
+
+
+## How to run
+
+Run the notebooks in order. Each one reads the previous step's output, so they must
+be run sequentially the first time.
+
+### Step 1 — (to be added later)
+
+Placeholder for the first stage of the pipeline. This notebook is not yet included
+and will be added later.
+
+### Step 2 — Embeddings (`2--ALEE_PRE-CALCULATE-Embeddings.ipynb`)
+
+Encodes every source text and foil in each dataset into vector embeddings.
+
+- Input: the three CSVs in `datasets/`.
+- Choose which models to run by editing the `models_to_run` list (most are
+  commented out by default).
+- Output: one JSON file per model per dataset in `intermediate_outputs/embeddings/`.
+
+This is the slow, GPU-heavy step.
+
+### Step 3 — Similarities (`3--ALEE_PRE-CALCULATE-SIMILARITIES.ipynb`)
+
+Reads the embedding files and computes, for each item, the similarity of the true
+translation and of each foil.
+
+- Input: `intermediate_outputs/embeddings/`.
+- Output: per-augmentation similarity files in
+  `intermediate_outputs/similarities/<augmentation_category>/`.
+
+The last cell checks that every augmentation folder ended up with the expected
+number of files; mismatches are printed.
+
+### Step 4 — Evaluation & analysis (`4--ALEE_EVALUATION_ANALYSIS.ipynb`)
+
+Loads the similarity files, computes TACC / macro-TACC, and produces the figures
+and tables.
+
+- Input: `intermediate_outputs/similarities/`.
+- Output: figures written to `intermediate_outputs/figures/` (PDF/PNG), plus LaTeX
+  tables printed inline.
+
+The loader builds a nested dict `dfs[aug_category][dataset][model_name]` and
+flattens it into the three per-dataset frames (`df_wmt`, `df_flores`,
+`df_bouquet`). The remaining sections are independent analyses you can run
+selectively, including: source-length effects, per-augmentation breakdowns,
+correlation with XLM-R pretraining data per language, subword-fragmentation
+effects, a single-language drill-down tool, LaTeX appendix tables, and a Qwen
+decoder-model case study.
+
+
+## Notes
+
+- `requirements.txt` pins `transformers==4.57.6` and `sentence-transformers==5.2.3`
+  to match the versions the notebooks were developed against. The pip-install cells
+  inside the notebooks are commented out; for local runs install from
+  `requirements.txt`.
+- Step 3 calls `nltk.download('punkt_tab')` at runtime for the token-count
+  statistics; this needs network access the first time.
+- Large model downloads, embeddings, and similarity files are not included in the
+  repo and are regenerated by running the notebooks.
