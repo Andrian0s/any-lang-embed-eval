@@ -50,13 +50,13 @@ The `datasets/` and `intermediate_outputs/` folders ship empty (each with an `in
 
 ## Datasets
 
-Each dataset provides English source sentences, AMR-derived foils, and target-language translations. The three instances differ in language coverage and text length. Download the CSVs and place them in `datasets/`.
+Each dataset provides English source sentences, AMR-derived foils, and target-language translations. The three instances differ in language coverage and text length. Use the python script provided "to_add.py" to load the datasets from huggingface and put them in the ".csv" 
 
 | Dataset      | File                      | Referred to as | Download |
 | ------------ | ------------------------- | -------------- | -------- |
-| ALEE-F200    | `datasets/alee_f200.csv`  | `df_flores`    | *(link to be added)* |
-| ALEE-MT61    | `datasets/alee_mt61.csv`  | `df_wmt`       | *(link to be added)* |
-| ALEE-BQ275   | `datasets/alee_bq275.csv` | `df_bouquet`   | *(link to be added)* |
+| ALEE-F200    | `datasets/alee_f200.csv`  | `df_flores`    | [*f200*](https://huggingface.co/datasets/Andrianos/alee_datasets/viewer/alee_f200) |
+| ALEE-MT61    | `datasets/alee_mt61.csv`  | `df_wmt`       | [*mt61*](https://huggingface.co/datasets/Andrianos/alee_datasets/viewer/alee_mt61) |
+| ALEE-BQ275   | `datasets/alee_bq275.csv` | `df_bouquet`   | [*bq275*](https://huggingface.co/datasets/Andrianos/alee_datasets/viewer/alee_bq275) 
 
 ## Setup
 
@@ -109,7 +109,15 @@ The loader builds a nested dict `dfs[aug_category][dataset][model_name]` and fla
 If you use ALEE, please cite:
 
 ```bibtex
-
+@misc{michail2026aleeanylanguageevaluationembeddings,
+      title={ALEE: Any-Language Evaluation of Embeddings via English-Centric Minimal Pairs}, 
+      author={Andrianos Michail and Stylianos Psychias and Michelle Wastl and Simon Clematide and Rico Sennrich and Juri Opitz},
+      year={2026},
+      eprint={2607.00171},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2607.00171}, 
+}
 ```
 
 ## About Impresso
