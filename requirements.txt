@@ -32,3 +32,8 @@ adjustText>=1.0
 # Utilities
 tqdm>=4.66
 psutil>=5.9
+
+# Datasets
+datasets>=2.19
+pyarrow>=14
+pyyaml>=6.0
