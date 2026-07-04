@@ -34,10 +34,12 @@ The framework is instantiated on three parallel datasets covering 275+ languages
 
 ```
 .
-├── 1--ALEE_...ipynb                           # step 1: foil generation (to be added later)
+├── 1--ALEE_Generate_Dataset.ipynb             # step 1: foil generation 
 ├── 2--ALEE_PRE-CALCULATE-Embeddings.ipynb     # step 2: text -> embeddings
 ├── 3--ALEE_PRE-CALCULATE-SIMILARITIES.ipynb   # step 3: embeddings -> similarities
 ├── 4--ALEE_EVALUATION_ANALYSIS.ipynb          # step 4: similarities -> TACC + figures/tables
+├── (script)--1--ALEE_Generate_Dataset.py      # script alternative for step1 - foil generation
+├── (script)--hf_dataset_load_to_step2.py      # script alternative to load from hf directly to move to Step2
 ├── requirements.txt
 ├── datasets/                                  # place downloaded input CSVs here (see Datasets below)
 └── intermediate_outputs/
@@ -72,9 +74,9 @@ Step 2 downloads models from the Hugging Face Hub and may prompt for a token via
 
 Run the notebooks in order. Each reads the previous step's output, so they must be run sequentially on a first pass.
 
-### Step 1 — Foil generation (to be added later)
+### Step 1 — Foil generation (1--ALEE_Generate_Dataset.ipynb)
 
-The first stage generates the AMR-controlled minimal pairs. This notebook is not yet included and will be added later. The generated datasets are available for download (see [Datasets](#datasets)) so steps 2–4 can be run without it.
+The first stage generates the AMR-controlled minimal pairs. The generated datasets are available for download (see [Datasets](#datasets)) or directly by our script so steps 2–4 can be run without it.
 
 ### Step 2 — Embeddings (`2--ALEE_PRE-CALCULATE-Embeddings.ipynb`)
 
