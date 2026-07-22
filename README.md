@@ -2,7 +2,7 @@
 
 ![License: AGPLv3+](https://img.shields.io/badge/License-AGPLv3+-brightgreen.svg)
 
-This repository contains the code and data for **ALEE (Any-Language Evaluation of Embeddings)**, a framework for the fine-grained, cross-lingual evaluation of text embedding models. ALEE extends [Sentence Smith](https://aclanthology.org/2025.emnlp-main.1344/) to the cross-lingual and paragraph level: it uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled semantic shifts, then pairs them with translations in a target language. This makes it possible to run targeted diagnostics for any language with English parallel data.
+This repository contains the code and data for **ALEE (Any-Language Evaluation of Embeddings)**, a framework for the fine-grained, cross-lingual evaluation of text embedding models. ALEE extends [Sentence Smith](https://aclanthology.org/2025.emnlp-main.1343/) to the cross-lingual and paragraph level: it uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled semantic shifts, then pairs them with translations in a target language. This makes it possible to run targeted diagnostics for any language with English parallel data.
 
 The pipeline is a sequence of numbered notebooks. Each notebook reads the output of the previous one from `intermediate_outputs/`, so they are run in order.
 
