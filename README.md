@@ -2,7 +2,9 @@
 
 ![License: AGPLv3+](https://img.shields.io/badge/License-AGPLv3+-brightgreen.svg)
 
-This repository contains the code and data for **ALEE (Any-Language Evaluation of Embeddings)**, a framework for the fine-grained, cross-lingual evaluation of text embedding models. ALEE extends [Sentence Smith](https://aclanthology.org/2025.emnlp-main.1343/) to the cross-lingual and paragraph level: it uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled semantic shifts, then pairs them with translations in a target language. This makes it possible to run targeted diagnostics for any language with English parallel data.
+This repository contains the code and data for **ALEE (Any-Language Evaluation of Embeddings)**, a framework for the fine-grained, dynamic cross-lingual evaluation of text embedding models. The associated paper is published in the [**EMNLP 2026** proceedings](https://aclanthology.org/2026.emnlp-main.63/).
+
+ALEE uses Abstract Meaning Representations (AMR) to generate English minimal pairs with controlled semantic shifts, then pairs them with translations in a target language. This makes it possible to run targeted diagnostics for any language with English parallel data.
 
 The pipeline is a sequence of numbered notebooks. Each notebook reads the output of the previous one from `intermediate_outputs/`, so they are run in order.
 
@@ -108,23 +110,38 @@ The loader builds a nested dict `dfs[aug_category][dataset][model_name]` and fla
 
 ## Citation
 
-If you use ALEE, please cite:
+ALEE has been published in the EMNLP 2026 proceedings. If you like the project, please cite:
 
 ```bibtex
-@misc{michail2026aleeanylanguageevaluationembeddings,
-      title={ALEE: Any-Language Evaluation of Embeddings via English-Centric Minimal Pairs}, 
-      author={Andrianos Michail and Stylianos Psychias and Michelle Wastl and Simon Clematide and Rico Sennrich and Juri Opitz},
-      year={2026},
-      eprint={2607.00171},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL},
-      url={https://arxiv.org/abs/2607.00171}, 
+@inproceedings{michail-etal-2026-alee,
+    title = "{ALEE}: Any-Language Evaluation of Embeddings via {E}nglish-Centric Minimal Pairs",
+    author = "Michail, Andrianos  and
+      Psychias, Stylianos  and
+      Wastl, Michelle  and
+      Clematide, Simon  and
+      Sennrich, Rico  and
+      Opitz, Juri",
+    editor = "Lee, Hung-Yi  and
+      Dev, Sunipa  and
+      Li, Jessy  and
+      Elliott, Desmond",
+    booktitle = "Proceedings of the 2026 Conference on Empirical Methods in Natural Language Processing",
+    month = oct,
+    year = "2026",
+    address = "Budapest, Hungary",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2026.emnlp-main.63/",
+    doi = "10.18653/2026.emnlp-main.63",
+    pages = "1434--1458",
+    ISBN = "979-8-89176-459-0"
 }
 ```
 
-## About Impresso
+## Useful pointers
 
-### Impresso project
+ALEE's AMR-based editing is a cross-lingual and paragraph-level extension of [Sentence Smith](https://aclanthology.org/2025.emnlp-main.1343/) published at EMNLP 2025.
+
+## Acknowledgements: Impresso project
 
 [Impresso - Media Monitoring of the Past](https://impresso-project.ch) is an interdisciplinary research project that aims to develop and consolidate tools for processing and exploring large collections of media archives across modalities, time, languages and national borders. The first project (2017-2021) was funded by the Swiss National Science Foundation under grant No. [CRSII5_173719](http://p3.snf.ch/project-173719) and the second project (2023-2027) by the SNSF under grant No. [CRSII5_213585](https://data.snf.ch/grants/grant/213585) and the Luxembourg National Research Fund under grant No. 17498891.
 
